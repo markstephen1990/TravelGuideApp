@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="4dp">
+
+    <!-- User Message -->
+    <TextView
+        android:id="@+id/tvUserMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:background="#6C63FF"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:padding="12dp"
+        android:layout_marginBottom="8dp"
+        android:maxWidth="280dp"
+        android:visibility="gone" />
+
+    <!-- AI Message -->
+    <LinearLayout
+        android:id="@+id/llAiMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:text="🤖"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_marginEnd="8dp" />
+
+        <TextView
+            android:id="@+id/tvAiMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#2E2E3E"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:padding="12dp"
+            android:maxWidth="280dp" />
+
+    </LinearLayout>
+
+</LinearLayout>
