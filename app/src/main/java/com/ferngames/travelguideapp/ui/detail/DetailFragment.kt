@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -17,6 +20,7 @@ import com.bumptech.glide.Glide
 import com.ferngames.travelguideapp.R
 import com.ferngames.travelguideapp.data.local.TravelDatabase
 import com.ferngames.travelguideapp.data.model.Destination
+import com.ferngames.travelguideapp.data.model.JournalEntry
 import com.ferngames.travelguideapp.data.model.TripPlan
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -98,32 +102,143 @@ class DetailFragment : Fragment() {
 
         // Add to Planner button
         view.findViewById<Button>(R.id.btnAddToPlanner).setOnClickListener {
-            viewLifecycleOwner.lifecycleScope.launch {
-                val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-                val today = sdf.format(Date())
-                val tripPlan = TripPlan(
-                    destinationName = destination.name,
-                    startDate = today,
-                    endDate = today,
-                    notes = "Trip to ${destination.name}, ${destination.country}",
-                    budget = 0.0
-                )
-                database.tripPlanDao().insertTripPlan(tripPlan)
-                Toast.makeText(
-                    requireContext(),
-                    "Added to Trip Planner! 📅",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+            showAddToPlannerDialog(destination)
         }
 
         // Add Journal button
         view.findViewById<Button>(R.id.btnAddJournal).setOnClickListener {
-            Toast.makeText(
-                requireContext(),
-                "Go to Journal tab to write your entry! 📔",
-                Toast.LENGTH_SHORT
-            ).show()
+            showAddJournalDialog(destination.name)
         }
+    }
+
+    private fun showAddToPlannerDialog(destination: Destination) {
+        val dialogView = LayoutInflater.from(requireContext())
+            .inflate(R.layout.dialog_add_trip, null)
+
+        val etDestination = dialogView.findViewById<EditText>(R.id.etTripDestination)
+        val etStartDate = dialogView.findViewById<EditText>(R.id.etStartDate)
+        val etEndDate = dialogView.findViewById<EditText>(R.id.etEndDate)
+        val etBudget = dialogView.findViewById<EditText>(R.id.etBudget)
+        val etNotes = dialogView.findViewById<EditText>(R.id.etNotes)
+
+        // Pre-fill destination
+        etDestination.setText(destination.name)
+        etDestination.isEnabled = false
+
+        // Date pickers
+        val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        etStartDate.setOnClickListener { showDatePicker(etStartDate, sdf) }
+        etEndDate.setOnClickListener { showDatePicker(etEndDate, sdf) }
+        etStartDate.isFocusable = false
+        etEndDate.isFocusable = false
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("📅 Add to Trip Planner")
+            .setView(dialogView)
+            .setPositiveButton("Save Trip") { _, _ ->
+                val startDate = etStartDate.text.toString().trim()
+                val endDate = etEndDate.text.toString().trim()
+
+                when {
+                    startDate.isEmpty() -> Toast.makeText(requireContext(),
+                        "Please select a start date!", Toast.LENGTH_SHORT).show()
+                    endDate.isEmpty() -> Toast.makeText(requireContext(),
+                        "Please select an end date!", Toast.LENGTH_SHORT).show()
+                    else -> {
+                        val start = sdf.parse(startDate)
+                        val end = sdf.parse(endDate)
+                        if (end != null && start != null && end.before(start)) {
+                            Toast.makeText(requireContext(),
+                                "End date must be after start date!",
+                                Toast.LENGTH_SHORT).show()
+                            return@setPositiveButton
+                        }
+                        val tripPlan = TripPlan(
+                            destinationName = destination.name,
+                            startDate = startDate,
+                            endDate = endDate,
+                            budget = etBudget.text.toString().toDoubleOrNull() ?: 0.0,
+                            notes = etNotes.text.toString().trim()
+                        )
+                        viewLifecycleOwner.lifecycleScope.launch {
+                            database.tripPlanDao().insertTripPlan(tripPlan)
+                            Toast.makeText(requireContext(),
+                                "Added to Trip Planner! 📅",
+                                Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun showAddJournalDialog(destinationName: String) {
+        val dialogView = LayoutInflater.from(requireContext())
+            .inflate(R.layout.dialog_add_journal, null)
+
+        val etDestination = dialogView.findViewById<EditText>(R.id.etJournalDestination)
+        val etTitle = dialogView.findViewById<EditText>(R.id.etJournalTitle)
+        val etContent = dialogView.findViewById<EditText>(R.id.etJournalContent)
+        val ratingBar = dialogView.findViewById<RatingBar>(R.id.ratingBar)
+
+        // Pre-fill destination name
+        etDestination.setText(destinationName)
+        etDestination.isEnabled = false
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("📔 Write Journal Entry")
+            .setView(dialogView)
+            .setPositiveButton("Save") { _, _ ->
+                val title = etTitle.text.toString().trim()
+                val content = etContent.text.toString().trim()
+
+                if (title.isEmpty()) {
+                    Toast.makeText(requireContext(),
+                        "Please enter a title!", Toast.LENGTH_SHORT).show()
+                    return@setPositiveButton
+                }
+
+                val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                val entry = JournalEntry(
+                    destinationName = destinationName,
+                    title = title,
+                    content = content,
+                    rating = ratingBar.rating,
+                    date = sdf.format(Date())
+                )
+
+                viewLifecycleOwner.lifecycleScope.launch {
+                    database.journalDao().insertEntry(entry)
+                    Toast.makeText(requireContext(),
+                        "Journal entry saved! 📔",
+                        Toast.LENGTH_SHORT).show()
+                }
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun showDatePicker(
+        editText: EditText,
+        sdf: SimpleDateFormat
+    ) {
+        val calendar = java.util.Calendar.getInstance()
+        val currentText = editText.text.toString()
+        if (currentText.isNotEmpty()) {
+            try {
+                val date = sdf.parse(currentText)
+                if (date != null) calendar.time = date
+            } catch (e: Exception) { }
+        }
+        android.app.DatePickerDialog(
+            requireContext(),
+            { _, year, month, day ->
+                editText.setText("$day/${month + 1}/$year")
+            },
+            calendar.get(java.util.Calendar.YEAR),
+            calendar.get(java.util.Calendar.MONTH),
+            calendar.get(java.util.Calendar.DAY_OF_MONTH)
+        ).show()
     }
 }
