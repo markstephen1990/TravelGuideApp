@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/etJournalDestination"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Destination name"
+        android:inputType="text"
+        android:layout_marginBottom="12dp" />
+
+    <EditText
+        android:id="@+id/etJournalTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Entry title"
+        android:inputType="text"
+        android:layout_marginBottom="12dp" />
+
+    <EditText
+        android:id="@+id/etJournalContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Write about your experience..."
+        android:inputType="textMultiLine"
+        android:minLines="4"
+        android:gravity="top"
+        android:layout_marginBottom="12dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rate your experience:"
+        android:textSize="14sp"
+        android:layout_marginBottom="8dp" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="1.0"
+        android:rating="3" />
+
+</LinearLayout>

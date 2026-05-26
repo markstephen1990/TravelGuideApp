@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/assistantFragment"
+        android:icon="@android:drawable/ic_menu_help"
+        android:title="🤖 AI Assistant" />
+
+    <item
+        android:id="@+id/plannerFragment"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="📅 Trip Planner" />
+
+    <item
+        android:id="@+id/journalFragment"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="📔 Journal" />
+
+</menu>
