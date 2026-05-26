@@ -22,11 +22,12 @@ import org.json.JSONObject
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
+import com.ferngames.travelguideapp.BuildConfig
 
 class AssistantFragment : Fragment() {
 
     private lateinit var adapter: MessageAdapter
-    private val API_KEY = "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"
+    private val API_KEY = BuildConfig.GROQ_API_KEY
     private val conversationHistory = mutableListOf<JSONObject>()
 
     override fun onCreateView(
