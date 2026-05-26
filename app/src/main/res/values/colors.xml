@@ -1,5 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Primary Colors -->
+    <color name="primary">#6C63FF</color>
+    <color name="primary_dark">#4B44CC</color>
+    <color name="primary_light">#8B85FF</color>
+
+    <!-- Background Colors -->
+    <color name="background_dark">#1A1A2E</color>
+    <color name="background_card">#16213E</color>
+    <color name="background_surface">#0F3460</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B0B0C0</color>
+    <color name="text_hint">#666680</color>
+
+    <!-- Accent Colors -->
+    <color name="accent_gold">#FFD700</color>
+    <color name="accent_green">#4CAF50</color>
+    <color name="accent_red">#FF6B6B</color>
+    <color name="accent_blue">#4FC3F7</color>
+
+    <!-- Category Colors -->
+    <color name="category_beach">#00BCD4</color>
+    <color name="category_city">#9C27B0</color>
+    <color name="category_adventure">#4CAF50</color>
+
+    <!-- Bottom Nav -->
+    <color name="bottom_nav_background">#16213E</color>
+    <color name="bottom_nav_selected">#6C63FF</color>
+    <color name="bottom_nav_unselected">#666680</color>
 </resources>

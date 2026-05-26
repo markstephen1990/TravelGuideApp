@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1E1E2E">
+    android:background="@color/background_dark">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,50 +22,61 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Welcome Back! 👋"
-                android:textColor="#AAAAAA"
+                android:textColor="@color/text_secondary"
                 android:textSize="16sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Where to next?"
-                android:textColor="#FFFFFF"
-                android:textSize="28sp"
-                android:textStyle="bold" />
+                android:textColor="@color/text_primary"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:layout_marginTop="4dp" />
 
         </LinearLayout>
 
         <!-- Search Bar -->
-        <LinearLayout
+        <androidx.cardview.widget.CardView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#2E2E3E"
-            android:orientation="horizontal"
-            android:padding="12dp"
-            android:layout_marginBottom="24dp">
+            android:layout_marginBottom="24dp"
+            app:cardBackgroundColor="@color/background_card"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_search"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:id="@+id/tvSearchHint"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Search destinations..."
-                android:textColor="#888888"
-                android:textSize="16sp" />
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:gravity="center_vertical">
 
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@android:drawable/ic_menu_search"
+                    android:layout_marginEnd="12dp" />
+
+                <TextView
+                    android:id="@+id/tvSearchHint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Search destinations..."
+                    android:textColor="@color/text_hint"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
 
         <!-- Categories -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Categories"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/text_primary"
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginBottom="12dp" />
@@ -86,9 +97,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="🌍 All"
-                    android:textColor="#FFFFFF"
-                    android:background="#6C63FF"
-                    android:padding="10dp"
+                    android:textColor="@color/text_primary"
+                    android:background="@color/primary"
+                    android:padding="12dp"
                     android:layout_marginEnd="8dp" />
 
                 <TextView
@@ -96,9 +107,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="🏖️ Beach"
-                    android:textColor="#FFFFFF"
-                    android:background="#2E2E3E"
-                    android:padding="10dp"
+                    android:textColor="@color/text_primary"
+                    android:background="@color/background_card"
+                    android:padding="12dp"
                     android:layout_marginEnd="8dp" />
 
                 <TextView
@@ -106,9 +117,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="🏙️ City"
-                    android:textColor="#FFFFFF"
-                    android:background="#2E2E3E"
-                    android:padding="10dp"
+                    android:textColor="@color/text_primary"
+                    android:background="@color/background_card"
+                    android:padding="12dp"
                     android:layout_marginEnd="8dp" />
 
                 <TextView
@@ -116,9 +127,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="🏔️ Adventure"
-                    android:textColor="#FFFFFF"
-                    android:background="#2E2E3E"
-                    android:padding="10dp"
+                    android:textColor="@color/text_primary"
+                    android:background="@color/background_card"
+                    android:padding="12dp"
                     android:layout_marginEnd="8dp" />
 
             </LinearLayout>
@@ -130,7 +141,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Featured Destinations"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/text_primary"
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginBottom="12dp" />

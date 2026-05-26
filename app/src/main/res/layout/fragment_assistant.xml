@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1E1E2E"
+    android:background="@color/background_dark"
     android:orientation="vertical">
 
     <!-- Header -->
@@ -11,13 +11,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        android:background="#2E2E3E">
+        android:background="@color/background_card">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="🤖 AI Travel Assistant"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/text_primary"
             android:textSize="24sp"
             android:textStyle="bold"
             android:layout_marginTop="24dp" />
@@ -25,8 +25,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ask me anything about travel!"
-            android:textColor="#AAAAAA"
+            android:text="Powered by Llama 3 — Ask me anything!"
+            android:textColor="@color/text_secondary"
             android:textSize="14sp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="8dp" />
@@ -48,7 +48,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="none"
-        android:padding="8dp">
+        android:padding="8dp"
+        android:background="@color/background_dark">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -60,8 +61,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Best time to visit Bali?"
-                android:textColor="#FFFFFF"
-                android:background="#2E2E3E"
+                android:textColor="@color/text_primary"
+                android:background="@color/background_card"
                 android:padding="10dp"
                 android:layout_marginEnd="8dp" />
 
@@ -70,8 +71,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Top destinations in Asia?"
-                android:textColor="#FFFFFF"
-                android:background="#2E2E3E"
+                android:textColor="@color/text_primary"
+                android:background="@color/background_card"
                 android:padding="10dp"
                 android:layout_marginEnd="8dp" />
 
@@ -80,8 +81,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Budget travel tips?"
-                android:textColor="#FFFFFF"
-                android:background="#2E2E3E"
+                android:textColor="@color/text_primary"
+                android:background="@color/background_card"
                 android:padding="10dp"
                 android:layout_marginEnd="8dp" />
 
@@ -90,8 +91,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="What to pack for Europe?"
-                android:textColor="#FFFFFF"
-                android:background="#2E2E3E"
+                android:textColor="@color/text_primary"
+                android:background="@color/background_card"
                 android:padding="10dp"
                 android:layout_marginEnd="8dp" />
 
@@ -105,17 +106,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="12dp"
-        android:background="#2E2E3E">
+        android:background="@color/background_card"
+        android:gravity="center_vertical">
 
         <EditText
             android:id="@+id/etMessage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#1E1E2E"
+            android:background="@color/background_dark"
             android:hint="Ask about travel..."
-            android:textColorHint="#888888"
-            android:textColor="#FFFFFF"
+            android:textColorHint="@color/text_hint"
+            android:textColor="@color/text_primary"
             android:padding="12dp"
             android:inputType="textMultiLine"
             android:maxLines="3" />
@@ -124,7 +126,7 @@
             android:id="@+id/btnSend"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="#6C63FF"
+            android:background="@color/primary"
             android:src="@android:drawable/ic_menu_send"
             android:layout_marginStart="8dp"
             android:contentDescription="Send"

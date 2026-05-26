@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1E1E2E"
+    android:background="@color/background_dark"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -15,23 +15,38 @@
         android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp">
 
-        <TextView
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Travel Journal 📔"
-            android:textColor="#FFFFFF"
-            android:textSize="28sp"
-            android:textStyle="bold" />
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Travel Journal 📔"
+                android:textColor="@color/text_primary"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your travel memories"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp" />
+
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/btnAddEntry"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="#6C63FF"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:background="@color/primary"
             android:src="@android:drawable/ic_input_add"
             android:contentDescription="Add Entry"
-            android:padding="12dp" />
+            android:padding="14dp" />
 
     </LinearLayout>
 
@@ -49,14 +64,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="📔"
-            android:textSize="64sp" />
+            android:textSize="72sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="No journal entries yet"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textColor="@color/text_primary"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp" />
 
@@ -64,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tap + to write about your travel experiences"
-            android:textColor="#AAAAAA"
+            android:textColor="@color/text_secondary"
             android:textSize="14sp"
             android:layout_marginTop="8dp"
             android:gravity="center" />
