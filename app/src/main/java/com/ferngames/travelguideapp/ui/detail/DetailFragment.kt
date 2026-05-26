@@ -12,6 +12,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -22,6 +23,7 @@ import com.ferngames.travelguideapp.data.local.TravelDatabase
 import com.ferngames.travelguideapp.data.model.Destination
 import com.ferngames.travelguideapp.data.model.JournalEntry
 import com.ferngames.travelguideapp.data.model.TripPlan
+import com.ferngames.travelguideapp.data.remote.DestinationEnricher
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -79,6 +81,40 @@ class DetailFragment : Fragment() {
         view.findViewById<TextView>(R.id.tvLanguage).text = destination.language
         view.findViewById<TextView>(R.id.tvDescription).text = destination.description
 
+        // Weather & Country info views
+        val weatherCard = view.findViewById<CardView>(R.id.weatherCard)
+        val tvWeatherEmoji = view.findViewById<TextView>(R.id.tvWeatherEmoji)
+        val tvWeatherTemp = view.findViewById<TextView>(R.id.tvWeatherTemp)
+        val tvWeatherDesc = view.findViewById<TextView>(R.id.tvWeatherDesc)
+        val tvWeatherWind = view.findViewById<TextView>(R.id.tvWeatherWind)
+        val tvPopulation = view.findViewById<TextView>(R.id.tvPopulation)
+
+        // Fetch live weather and country info
+        viewLifecycleOwner.lifecycleScope.launch {
+            val enricher = DestinationEnricher()
+
+            // Get live weather
+            val weather = enricher.getWeather(
+                destination.latitude,
+                destination.longitude
+            )
+            weather?.let {
+                weatherCard.visibility = View.VISIBLE
+                tvWeatherEmoji.text = it.emoji
+                tvWeatherTemp.text = "${it.temperature}°C"
+                tvWeatherDesc.text = it.description
+                tvWeatherWind.text = "${it.windSpeed}"
+            }
+
+            // Get country info
+            val countryInfo = enricher.getCountryInfo(destination.country)
+            countryInfo?.let {
+                tvPopulation.text = "👥 Population: ${
+                    String.format("%,d", it.population)
+                }"
+            }
+        }
+
         // Wishlist button
         val btnWishlist = view.findViewById<ImageButton>(R.id.btnWishlist)
         btnWishlist.setImageResource(
@@ -121,11 +157,9 @@ class DetailFragment : Fragment() {
         val etBudget = dialogView.findViewById<EditText>(R.id.etBudget)
         val etNotes = dialogView.findViewById<EditText>(R.id.etNotes)
 
-        // Pre-fill destination
         etDestination.setText(destination.name)
         etDestination.isEnabled = false
 
-        // Date pickers
         val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         etStartDate.setOnClickListener { showDatePicker(etStartDate, sdf) }
         etEndDate.setOnClickListener { showDatePicker(etEndDate, sdf) }
@@ -182,7 +216,6 @@ class DetailFragment : Fragment() {
         val etContent = dialogView.findViewById<EditText>(R.id.etJournalContent)
         val ratingBar = dialogView.findViewById<RatingBar>(R.id.ratingBar)
 
-        // Pre-fill destination name
         etDestination.setText(destinationName)
         etDestination.isEnabled = false
 

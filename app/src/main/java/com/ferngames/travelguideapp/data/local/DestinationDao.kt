@@ -19,7 +19,7 @@ interface DestinationDao {
     @Query("SELECT * FROM destinations WHERE category = :category")
     fun getDestinationsByCategory(category: String): LiveData<List<Destination>>
 
-    @Query("SELECT * FROM destinations WHERE name LIKE '%' || :query || '%' OR country LIKE '%' || :query || '%'")
+    @Query("SELECT * FROM destinations WHERE name LIKE :query || '%' OR country LIKE :query || '%'")
     fun searchDestinations(query: String): LiveData<List<Destination>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -36,4 +36,10 @@ interface DestinationDao {
 
     @Query("UPDATE destinations SET isWishlisted = :isWishlisted WHERE id = :id")
     suspend fun updateWishlistStatus(id: Int, isWishlisted: Boolean)
+
+    @Query("DELETE FROM destinations")
+    suspend fun deleteAllDestinations()
+
+    @Query("DELETE FROM destinations WHERE isWishlisted = 0")
+    suspend fun deleteNonWishlistedDestinations()
 }

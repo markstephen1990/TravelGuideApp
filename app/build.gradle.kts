@@ -26,6 +26,10 @@ android {
         }
         buildConfigField("String", "GROQ_API_KEY",
             "\"${localProps.getProperty("GROQ_API_KEY", "")}\"")
+        buildConfigField("String", "MAPS_API_KEY",
+            "\"${localProps.getProperty("GOOGLE_MAPS_API_KEY", "")}\"")
+        buildConfigField("String", "UNSPLASH_API_KEY",
+            "\"${localProps.getProperty("UNSPLASH_API_KEY", "")}\"")
         manifestPlaceholders["MAPS_API_KEY"] =
             localProps.getProperty("GOOGLE_MAPS_API_KEY", "")
     }
@@ -97,6 +101,9 @@ dependencies {
 
     // ViewPager2
     implementation("androidx.viewpager2:viewpager2:1.0.0")
+
+    // Google Places
+    implementation("com.google.android.libraries.places:places:3.3.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

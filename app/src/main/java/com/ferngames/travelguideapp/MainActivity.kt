@@ -5,7 +5,6 @@ import android.view.MenuItem
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -20,26 +19,28 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
 
-        // Setup bottom nav but exclude moreMenu
-        bottomNav.setupWithNavController(navController)
-
-        // Handle More menu click
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.homeFragment -> {
-                    navController.navigate(R.id.homeFragment)
+                    navController.popBackStack(R.id.homeFragment, false)
                     true
                 }
                 R.id.exploreFragment -> {
-                    navController.navigate(R.id.exploreFragment)
+                    if (navController.currentDestination?.id != R.id.exploreFragment) {
+                        navController.navigate(R.id.exploreFragment)
+                    }
                     true
                 }
                 R.id.mapFragment -> {
-                    navController.navigate(R.id.mapFragment)
+                    if (navController.currentDestination?.id != R.id.mapFragment) {
+                        navController.navigate(R.id.mapFragment)
+                    }
                     true
                 }
                 R.id.wishlistFragment -> {
-                    navController.navigate(R.id.wishlistFragment)
+                    if (navController.currentDestination?.id != R.id.wishlistFragment) {
+                        navController.navigate(R.id.wishlistFragment)
+                    }
                     true
                 }
                 R.id.moreMenu -> {
@@ -62,15 +63,21 @@ class MainActivity : AppCompatActivity() {
         popup.setOnMenuItemClickListener { item: MenuItem ->
             when (item.itemId) {
                 R.id.assistantFragment -> {
-                    navController.navigate(R.id.assistantFragment)
+                    if (navController.currentDestination?.id != R.id.assistantFragment) {
+                        navController.navigate(R.id.assistantFragment)
+                    }
                     true
                 }
                 R.id.plannerFragment -> {
-                    navController.navigate(R.id.plannerFragment)
+                    if (navController.currentDestination?.id != R.id.plannerFragment) {
+                        navController.navigate(R.id.plannerFragment)
+                    }
                     true
                 }
                 R.id.journalFragment -> {
-                    navController.navigate(R.id.journalFragment)
+                    if (navController.currentDestination?.id != R.id.journalFragment) {
+                        navController.navigate(R.id.journalFragment)
+                    }
                     true
                 }
                 else -> false
